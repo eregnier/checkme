@@ -18,23 +18,46 @@ module.controller('MainCtrl', function ($scope, $http) {
     };
 
     $scope.newCheck = function () {
-        $http.get('/new/' + $scope.text).success(function () {
-            $scope.reload();
+        $http.get('/new/check/' + $scope.selectedCategory.id + '/' + $scope.text).success(function () {
             $scope.text = '';
+            $scope.reloadCheck();
         });
     };
 
-    $scope.reload = function () {
-        $http.get('/get').success(function (data) {
+    $scope.reloadCheck = function () {
+        $http.get('/get/check/' + $scope.selectedCategory.id).success(function (data) {
             $scope.checks = data.data;
         });
-    }
-
-    $scope.archive = function () {
-        $http.get('/archive');
-        $scope.reload();
     };
 
-    $scope.reload();
+    $scope.archive = function () {
+        $http.get('/archive/' + $scope.selectedCategory.id);
+        $scope.reloadCheck();
+    };
+
+    $scope.selectCategory = function (category) {
+        $scope.selectedCategory = category;
+        $scope.reloadCheck();
+    };
+
+    $scope.newCategory = function (callback) {
+        $http.get('/new/category/' + $scope.category).success(function () {
+            $scope.reloadCategory();
+            $scope.category = '';
+        });
+    };
+
+    $scope.reloadCategory = function () {
+        $http.get('/get/category').success(function (data) {
+            $scope.categories = data.data;
+            if ($scope.categories.length) {
+                $scope.selectedCategory = $scope.categories[0];
+                $scope.reloadCheck();
+            }
+        });
+    };
+
+
+    $scope.reloadCategory();
 });
 

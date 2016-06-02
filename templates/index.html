@@ -2,7 +2,7 @@
 <html lang="en" ng-app="checkme">
     <head>
 
-        <title>{% block title %}{% endblock %} - Eric Régnier portfolio</title>
+        <title>A simple todo list, as I wish !</title>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +19,39 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="dropdown">
+                              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{selectedCategory.text}}
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li>
+                                    <a ng-click="selectCategory(category)" ng-repeat="category in categories">{{category.text}}</a>
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" ng-click="newCategory()">
+                                                <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input ng-model="category" type="text" placeholder="New categpry" class="form-control" />
+                                    </div>
+                                </li>
+                              </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button class="btn btn-default" ng-click="archive()">
+                                Archive <span  class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr/>
+
                     <ul class="list-group">
                         <li style="cursor:pointer" ng-repeat="check in checks" class="list-group-item">
                             <span ng-show="check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-check" aria-hidden="true"></span>
@@ -32,7 +65,7 @@
                             </span>
                         </li>
                         <hr ng-show="checks.length"/>
-                        <div class="input-group">
+                        <div ng-show="selectedCategory" class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" ng-click="newCheck()">
                                     <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -40,13 +73,8 @@
                             </span>
                             <input ng-model="text" type="text" placeholder="New check" class="form-control" />
                         </div>
-                        <hr/>
-                        <div class="text-center">
-                            <button class="btn btn-default" ng-click="archive()">
-                                Archive <span  class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
-                            </button>
-                        </div>
                     </ul>
+
                 </div>
             </div>
         </div>

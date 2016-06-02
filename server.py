@@ -1,7 +1,7 @@
 from flask import render_template, Flask, send_from_directory, redirect, \
     url_for, jsonify, request, abort
 import logging
-from models import Check
+from models import Check, Category
 
 app = Flask(__name__)
 
@@ -26,15 +26,17 @@ def serve_static(filename):
     )
 
 
-@app.route('/get')
-def get():
-    checks = Check.select().where(Check.status == 'P')
+@app.route('/get/check/<int:categoryId>')
+def get_check(categoryId):
+    checks = Check.select().where(
+        (Check.status == 'P') & (Check.category == categoryId)
+    )
     return jsonify({'data': [x.to_json() for x in checks]})
 
 
-@app.route('/get/<int:checkId>')
-def get_check(checkId):
-    return jsonify({'data': Check.get(id=checkId).to_json()})
+@app.route('/get/category')
+def get_category():
+    return jsonify({'data': [x.to_json() for x in Category.select()]})
 
 
 @app.route('/check/<int:checkId>/<int:check>')
@@ -53,16 +55,24 @@ def set_cross(checkId, cross):
     return jsonify({'status': 'OK'})
 
 
-@app.route('/new/<text>')
-def new(text):
-    c = Check(text=text)
-    c.save()
+@app.route('/new/check/<int:categoryId>/<text>')
+def new_check(categoryId, text):
+    Check(
+        text=text,
+        category=Category.get(id=categoryId)
+    ).save()
     return jsonify({'status': 'OK'})
 
 
-@app.route('/archive')
-def archive():
-    Check.archive()
+@app.route('/new/category/<text>')
+def new_category(text):
+    Category(text=text).save()
+    return jsonify({'status': 'OK'})
+
+
+@app.route('/archive/<int:categoryId>')
+def archive(categoryId):
+    Check.archive(categoryId)
     return jsonify({'status': 'OK'})
 
 
