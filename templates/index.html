@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="checkme">
+    <head>
+
+        <title>{% block title %}{% endblock %} - Eric Régnier portfolio</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Check your life, simplify each day !"/>
+
+        <link rel="icon" href="favicon.ico" />
+        <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css"/>
+
+    </head>
+    {% raw %}
+    <body ng-controller="MainCtrl">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="well well-sm">
+                    <ul class="list-group">
+                        <li style="cursor:pointer" ng-repeat="check in checks" class="list-group-item">
+                            <span ng-show="check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                            <span ng-show="!check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+
+                            <span ng-show="check.cross" ng-click="switchCross(check)">
+                                <s>{{check.text}}</s>
+                            </span>
+                            <span ng-show="!check.cross" ng-click="switchCross(check)">
+                                {{check.text}}
+                            </span>
+                        </li>
+                        <hr ng-show="checks.length"/>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="newCheck()">
+                                    <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                            <input ng-model="text" type="text" placeholder="New check" class="form-control" />
+                        </div>
+                        <hr/>
+                        <div class="text-center">
+                            <button class="btn btn-default" ng-click="archive()">
+                                Archive <span  class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="/static/app.js"></script>
+
+    </body>
+    {% endraw %}
+
+</html>
