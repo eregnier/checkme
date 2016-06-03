@@ -41,7 +41,8 @@ class Check(Model):
             'check': self.check,
             'cross': self.cross,
             'text': self.text,
-            'category': self.category.to_json()
+            'category': self.category.to_json(),
+            'created': self.created
         }
 
     @staticmethod

@@ -52,7 +52,7 @@
                     </div>
 
                     <ul class="list-group">
-                        <li style="cursor:pointer" ng-repeat="check in checks" class="list-group-item">
+                        <li ng-attr-title="{{check.created}}" style="cursor:pointer" ng-repeat="check in checks" class="list-group-item">
                             <span ng-show="check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-check" aria-hidden="true"></span>
                             <span ng-show="!check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
 
