@@ -6,3 +6,4 @@ pip-selfcheck.json
 *.pyc
 portfolio.sqlite
 /checkme.sqlite
+/share
