@@ -13,10 +13,10 @@ Features
 * (Basic) Authentication via a json file
 * auto sorted priorities on tasks
 
-Authenticaion
-=============
+Authentication
+==============
 
-Write the /etc/check_auth.json file that have to look like:
+Write the **/etc/check_auth.json** file that have to look like:
 
 	[
 		{"username": "me", "password": "plain-text-secret"}
