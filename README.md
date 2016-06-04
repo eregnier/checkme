@@ -11,7 +11,7 @@ Features
 * Todo categories
 * Archivable check elements for checked elements (by selected category)
 * (Basic) Authentication via a json file
-* auto sorted priorities on tasks
+* Auto sorted priorities on tasks
 
 Authentication
 ==============
@@ -41,7 +41,7 @@ Notes
 =====
 
 * I use supervisord to serve this app *forever* !
-* I also use this app in as a chromium extension with an *ugly* Iframed empty extension
+* I also use this app in as a chromium extension with an *ugly Iframed* empty extension
 
 
 Sample
