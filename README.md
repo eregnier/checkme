@@ -32,7 +32,9 @@ Run the following commands to get a working installation:
 	git clone "this repository"
 	cd "this repository folder"
 	virtualenv . [-p /usr/bin/python3]
+	source bin/activate
 	pip install -r requirements.txt
+	python models # db initialization
 	"this repository folder"/bin/gunicorn --bind 0.0.0.0:<PORT> wsgi:app
 
 Notes
@@ -46,3 +48,8 @@ Sample
 ======
 
 ![Todo Again](/sample.png)
+
+Licence
+=======
+
+MIT
