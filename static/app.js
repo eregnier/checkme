@@ -57,6 +57,11 @@ module.controller('MainCtrl', function ($scope, $http) {
         });
     };
 
+    $scope.changePriority = function(check, priority) {
+        check.priority = priority;
+        $http.get('/set/priority/' + check.id + '/' + priority);
+    };
+
 
     $scope.reloadCategory();
 });

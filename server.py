@@ -1,5 +1,4 @@
-from flask import render_template, Flask, send_from_directory, \
-    url_for, jsonify, request, abort
+from flask import render_template, Flask, send_from_directory, jsonify
 import logging
 from models import Check, Category
 from auth import requires_auth
@@ -82,6 +81,15 @@ def new_category(text):
 @requires_auth
 def archive(categoryId):
     Check.archive(categoryId)
+    return jsonify({'status': 'OK'})
+
+
+@app.route('/set/priority/<int:checkId>/<int:priority>')
+@requires_auth
+def priority(checkId, priority):
+    check = Check.get(id=checkId)
+    check.priority = priority
+    check.save()
     return jsonify({'status': 'OK'})
 
 

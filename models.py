@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # encoding: utf-8
 from peewee import SqliteDatabase, Model, CharField, DateTimeField, \
-   BooleanField, ForeignKeyField
+    BooleanField, ForeignKeyField, IntegerField
 import datetime
 
 dbname = 'checkme.sqlite'
@@ -34,6 +34,7 @@ class Check(Model):
     # P = pending, A = archived
     status = CharField(max_length=1, default='P')
     category = ForeignKeyField(Category, related_name='category')
+    priority = IntegerField(default=1)
 
     def to_json(self):
         return {
@@ -42,7 +43,8 @@ class Check(Model):
             'cross': self.cross,
             'text': self.text,
             'category': self.category.to_json(),
-            'created': self.created
+            'created': self.created,
+            'priority': self.priority
         }
 
     @staticmethod
@@ -54,9 +56,6 @@ class Check(Model):
             for check in checks_to_archive:
                 check.status = 'A'
                 check.save()
-
-
-
 
 if __name__ == '__main__':
 

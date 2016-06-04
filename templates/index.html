@@ -13,6 +13,12 @@
         <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css"/>
 
+        <style type="text/css">
+            .dropdown .dropdown-menu {
+                margin-top: 0px;
+                width: 20px;
+            }
+        </style>
     </head>
     {% raw %}
     <body ng-controller="MainCtrl" style="overflow-x:hidden;">
@@ -52,7 +58,7 @@
                     </div>
 
                     <ul class="list-group">
-                        <li ng-attr-title="{{check.created}}" style="cursor:pointer" ng-repeat="check in checks" class="list-group-item">
+                        <li ng-attr-title="{{check.created}}" style="cursor:pointer" ng-repeat="check in checks | orderBy : '-priority'" class="list-group-item">
                             <span ng-show="check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-check" aria-hidden="true"></span>
                             <span ng-show="!check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
 
@@ -62,6 +68,20 @@
                             <span ng-show="!check.cross" ng-click="switchCross(check)">
                                 {{check.text}}
                             </span>
+                            <div ng-mouseover="check.changepriority = true" ng-mouseout="check.changepriority = false" class="pull-right">
+                                <span ng-show="!check.changepriority" class="badge" >{{check.priority}}</span>
+                                <div ng-show="check.changepriority" class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        {{check.priority}}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li  ng-repeat="priority in [1,2,3,4,5]">
+                                            <a ng-click="changePriority(check, priority)">{{priority}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                         <hr ng-show="checks.length"/>
                         <div ng-show="selectedCategory" class="input-group">
