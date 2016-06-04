@@ -37,13 +37,13 @@
                                     <a ng-click="selectCategory(category)" ng-repeat="category in categories">{{category.text}}</a>
                                 </li>
                                 <li>
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
+                                    <div class="input-group" style="margin-left:3px;margin-right:3px;">
+                                        <span class="input-group-btn btn-group-sm">
                                             <button class="btn btn-default" ng-click="newCategory()">
                                                 <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                             </button>
                                         </span>
-                                        <input ng-model="category" type="text" placeholder="New categpry" class="form-control" />
+                                        <input ng-model="category" type="text" placeholder="New categpry" class="form-control input-sm" />
                                     </div>
                                 </li>
                               </ul>
