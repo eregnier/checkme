@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="checkme">
-    <head>
+{% extends "base.html" %}
+{% block body %}
 
-        <title>A simple todo list, as I wish !</title>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Check your life, simplify each day !"/>
-
-        <link rel="icon" href="favicon.ico" />
-        <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css"/>
-
-        <style type="text/css">
-            .dropdown .dropdown-menu {
-                margin-top: 0px;
-                width: 20px;
-            }
-        </style>
-    </head>
     {% raw %}
     <body ng-controller="MainCtrl" style="overflow-x:hidden;">
         <div class="container">
@@ -97,6 +78,11 @@
                     </div>
                 </div>
             </div>
+            {% endraw %}
+                <div class="text-center">
+                    <a href="/logout">logout {{current_user.email}}</a>
+                </div>
+            {% raw %}
         </div>
 
         <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
@@ -107,4 +93,5 @@
     </body>
     {% endraw %}
 
-</html>
+{% endblock %}
+s

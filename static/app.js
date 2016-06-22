@@ -13,25 +13,25 @@ module.controller('MainCtrl', function ($scope, $http) {
 
     $scope.switchCross = function (check) {
         check.cross = !check.cross;
-        $http.get('/cross/' + check.id + '/' + (check.cross ? 1 : 0 ));
+        $http.get('/check/cross/' + check.id + '/' + (check.cross ? 1 : 0 ));
         console.log('cross', check.cross);
     };
 
     $scope.newCheck = function () {
-        $http.get('/new/check/' + $scope.selectedCategory.id + '/' + $scope.text).success(function () {
+        $http.get('/check/new/' + $scope.selectedCategory.id + '/' + $scope.text).success(function () {
             $scope.text = '';
             $scope.reloadCheck();
         });
     };
 
     $scope.reloadCheck = function () {
-        $http.get('/get/check/' + $scope.selectedCategory.id).success(function (data) {
+        $http.get('/check/' + $scope.selectedCategory.id).success(function (data) {
             $scope.checks = data.data;
         });
     };
 
     $scope.archive = function () {
-        $http.get('/archive/' + $scope.selectedCategory.id);
+        $http.get('/check/archive/' + $scope.selectedCategory.id);
         $scope.reloadCheck();
     };
 
@@ -41,14 +41,16 @@ module.controller('MainCtrl', function ($scope, $http) {
     };
 
     $scope.newCategory = function (callback) {
-        $http.get('/new/category/' + $scope.category).success(function () {
-            $scope.reloadCategory();
-            $scope.category = '';
-        });
+        if ($scope.category) {
+            $http.get('/category/new/' + $scope.category).success(function () {
+                $scope.reloadCategory();
+                $scope.category = '';
+            });
+        }
     };
 
     $scope.reloadCategory = function () {
-        $http.get('/get/category').success(function (data) {
+        $http.get('/category/all').success(function (data) {
             $scope.categories = data.data;
             if ($scope.categories.length) {
                 $scope.selectedCategory = $scope.categories[0];
@@ -59,7 +61,7 @@ module.controller('MainCtrl', function ($scope, $http) {
 
     $scope.changePriority = function(check, priority) {
         check.priority = priority;
-        $http.get('/set/priority/' + check.id + '/' + priority);
+        $http.get('/check/priority/' + check.id + '/' + priority);
     };
 
 

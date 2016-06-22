@@ -1,9 +1,13 @@
-from flask import render_template, Flask, send_from_directory, jsonify
 import logging
-from models import Check, Category
-from auth import requires_auth
+from flask import render_template, Flask, send_from_directory, jsonify
+from flask_login import login_required, current_user
+from flask_classy import FlaskView, route
+from models.check import Check
+from models.category import Category
+from auth import register_auth
 
 app = Flask(__name__)
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -12,86 +16,85 @@ logging.basicConfig(
 )
 
 
-@app.route('/')
-@requires_auth
-def page(page=None):
+class MainView(FlaskView):
 
-    return render_template('index.html'.format(page))
+    @login_required
+    def index(self):
+        return render_template('index.html', current_user=current_user)
 
-
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    return send_from_directory(
-        'static',
-        filename
-    )
-
-
-@app.route('/get/check/<int:categoryId>')
-@requires_auth
-def get_check(categoryId):
-    checks = Check.select().where(
-        (Check.status == 'P') & (Check.category == categoryId)
-    )
-    return jsonify({'data': [x.to_json() for x in checks]})
+    @route('/static/<path:filename>')
+    @login_required
+    def serve_static(self, filename):
+        return send_from_directory(
+            'static',
+            filename
+        )
 
 
-@app.route('/get/category')
-@requires_auth
-def get_category():
-    return jsonify({'data': [x.to_json() for x in Category.select()]})
+class CheckView(FlaskView):
+
+    @login_required
+    def get(self, categoryId):
+        checks = Check.select().where(
+            (Check.status == 'P') & (Check.category == int(categoryId))
+        )
+        return jsonify({'data': [x.to_json() for x in checks]})
+
+    @login_required
+    def check(self, checkId, check):
+        c = Check.get(id=int(checkId))
+        c.check = True if check == '1' else False
+        c.save()
+        return jsonify({'status': 'OK'})
+
+    @login_required
+    def cross(self, checkId, cross):
+        c = Check.get(id=int(checkId))
+        c.cross = True if cross == '1' else False
+        c.save()
+        return jsonify({'status': 'OK'})
+
+    @login_required
+    def new(self, categoryId, text):
+        Check(
+            text=text,
+            category=Category.get(id=int(categoryId))
+        ).save()
+        return jsonify({'status': 'OK'})
+
+    @login_required
+    def archive(self, categoryId):
+        Check.archive(int(categoryId))
+        return jsonify({'status': 'OK'})
+
+    @login_required
+    def priority(self, checkId, priority):
+        check = Check.get(id=int(checkId))
+        check.priority = int(priority)
+        check.save()
+        return jsonify({'status': 'OK'})
 
 
-@app.route('/check/<int:checkId>/<int:check>')
-@requires_auth
-def set_check(checkId, check):
-    c = Check.get(id=checkId)
-    c.check = bool(check)
-    c.save()
-    return jsonify({'status': 'OK'})
+class CategoryView(FlaskView):
+
+    @login_required
+    def all(self):
+        categories = Category.select().where(Category.user == current_user.id)
+        return jsonify({'data': [x.to_json() for x in categories]})
+
+    @login_required
+    def new(self, text):
+        Category(text=text, user=current_user.id).save()
+        return jsonify({'status': 'OK'})
 
 
-@app.route('/cross/<int:checkId>/<int:cross>')
-@requires_auth
-def set_cross(checkId, cross):
-    c = Check.get(id=checkId)
-    c.cross = bool(cross)
-    c.save()
-    return jsonify({'status': 'OK'})
+MainView.register(app)
+CheckView.register(app)
+CategoryView.register(app)
 
+register_auth(app)
 
-@app.route('/new/check/<int:categoryId>/<text>')
-@requires_auth
-def new_check(categoryId, text):
-    Check(
-        text=text,
-        category=Category.get(id=categoryId)
-    ).save()
-    return jsonify({'status': 'OK'})
-
-
-@app.route('/new/category/<text>')
-@requires_auth
-def new_category(text):
-    Category(text=text).save()
-    return jsonify({'status': 'OK'})
-
-
-@app.route('/archive/<int:categoryId>')
-@requires_auth
-def archive(categoryId):
-    Check.archive(categoryId)
-    return jsonify({'status': 'OK'})
-
-
-@app.route('/set/priority/<int:checkId>/<int:priority>')
-@requires_auth
-def priority(checkId, priority):
-    check = Check.get(id=checkId)
-    check.priority = priority
-    check.save()
-    return jsonify({'status': 'OK'})
-
+app.config["SECRET_KEY"] = 'Super Check Admin Key'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

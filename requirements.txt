@@ -1,3 +1,7 @@
 flask
 peewee
 gunicorn
+flask-login
+flask-classy
+passwordmeter
+pyyaml
