@@ -15,8 +15,11 @@ class User(BaseModel, UserMixin):
     @staticmethod
     def create(email, password, fullname=None):
         user = User(email=email)
-        user.password = sha1(password.encode('utf-8')).hexdigest()
+        user.update_password(password)
         return user
+
+    def update_password(self, password):
+        self.password = sha1(password.encode('utf-8')).hexdigest()
 
     def check(self, password):
         return self.password == sha1(password.encode('utf-8')).hexdigest()
