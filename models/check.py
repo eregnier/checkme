@@ -1,31 +1,11 @@
-#! /usr/bin/python
-# encoding: utf-8
-from peewee import SqliteDatabase, Model, CharField, DateTimeField, \
-    BooleanField, ForeignKeyField, IntegerField
+from peewee import CharField, ForeignKeyField, DateTimeField, \
+    IntegerField, BooleanField
 import datetime
-
-dbname = 'checkme.sqlite'
-db = SqliteDatabase(dbname, threadlocals=True)
-
-
-class Category(Model):
-
-    class Meta:
-        database = db
-
-    text = CharField(max_length=100)
-
-    def to_json(self):
-        return {
-            'id': self.id,
-            'text': self.text
-        }
+from models.category import Category
+from models.base import BaseModel
 
 
-class Check(Model):
-
-    class Meta:
-        database = db
+class Check(BaseModel):
 
     created = DateTimeField(default=datetime.datetime.now)
     check = BooleanField(default=False)
@@ -52,12 +32,6 @@ class Check(Model):
         checks_to_archive = Check.select().where(
             (Check.check == True) & (Check.category == categoryId)
         )
-        with db.atomic():
-            for check in checks_to_archive:
-                check.status = 'A'
-                check.save()
-
-if __name__ == '__main__':
-
-    db.connect()
-    db.create_tables([Check, Category], safe=True)
+        for check in checks_to_archive:
+            check.status = 'A'
+            check.save()
