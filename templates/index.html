@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block body %}
+    <style>
+        .nopadding{
+            padding: 0 !important;
+        }
+    </style>
 
     {% raw %}
     <body ng-controller="MainCtrl" style="overflow-x:hidden;">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-lg-6  col-lg-offset-3 col-xs-12">
+                <div class="col-md-12 col-sm-12 col-lg-6  col-lg-offset-3 col-xs-12 nopadding">
                     <div class="well well-sm">
                         <div class="row" style="margin-bottom:10px;">
                             <div class="col-xs-6">
@@ -75,14 +80,14 @@
                             </div>
                         </ul>
 
+                        {% endraw %}
+                            <div class="text-center">
+                                <a href="/logout"><i>logout {{current_user.email}}</i></a>
+                            </div>
+                        {% raw %}
                     </div>
                 </div>
             </div>
-            {% endraw %}
-                <div class="text-center">
-                    <a href="/logout">logout {{current_user.email}}</a>
-                </div>
-            {% raw %}
         </div>
 
         <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
