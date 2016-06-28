@@ -1,5 +1,6 @@
 import logging
-from flask import render_template, Flask, send_from_directory, jsonify
+from flask import render_template, Flask, send_from_directory, jsonify,\
+    url_for, redirect
 from flask_login import login_required, current_user
 from flask_classy import FlaskView, route
 from models.check import Check
@@ -65,7 +66,7 @@ class CheckView(FlaskView):
     @login_required
     def archive(self, categoryId):
         Check.archive(int(categoryId))
-        return jsonify({'status': 'OK'})
+        return redirect(url_for('CheckView:get', categoryId=categoryId))
 
     @login_required
     def priority(self, checkId, priority):

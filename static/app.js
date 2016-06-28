@@ -31,8 +31,9 @@ module.controller('MainCtrl', function ($scope, $http) {
     };
 
     $scope.archive = function () {
-        $http.get('/check/archive/' + $scope.selectedCategory.id);
-        $scope.reloadCheck();
+        $http.get('/check/archive/' + $scope.selectedCategory.id).success(function (data) {
+            $scope.checks = data.data;
+        });
     };
 
     $scope.selectCategory = function (category) {
