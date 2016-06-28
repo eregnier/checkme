@@ -7,7 +7,7 @@ module.controller('MainCtrl', function ($scope, $http) {
 
     $scope.switchCheck = function (check) {
         check.check = !check.check;
-        $http.get('/check/' + check.id + '/' + (check.check ? 1 : 0));
+        $http.get('/check/check/' + check.id + '/' + (check.check ? 1 : 0));
         console.log('check', check.check);
     };
 
