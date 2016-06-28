@@ -1,6 +1,6 @@
 import logging
 from flask import render_template, Flask, send_from_directory, jsonify,\
-    url_for, redirect
+    url_for, redirect, request
 from flask_login import login_required, current_user
 from flask_classy import FlaskView, route
 from models.check import Check
@@ -56,10 +56,11 @@ class CheckView(FlaskView):
         return jsonify({'status': 'OK'})
 
     @login_required
-    def new(self, categoryId, text):
+    def post(self):
+
         Check(
-            text=text,
-            category=Category.get(id=int(categoryId))
+            text=request.json['text'],
+            category=Category.get(id=request.json['categoryId'])
         ).save()
         return jsonify({'status': 'OK'})
 

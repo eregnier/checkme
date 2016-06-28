@@ -18,9 +18,15 @@ module.controller('MainCtrl', function ($scope, $http) {
     };
 
     $scope.newCheck = function () {
-        $http.get('/check/new/' + $scope.selectedCategory.id + '/' + $scope.text).success(function () {
+        var post = {
+            text: $scope.text,
+            categoryId: $scope.selectedCategory.id
+        };
+        $http.post('/check/', post).success(function () {
             $scope.text = '';
             $scope.reloadCheck();
+        }).success(function (data) {
+            console.log(data);
         });
     };
 
