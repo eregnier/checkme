@@ -2,14 +2,14 @@
 
 <div class="list-group">
     <div ng-repeat="check in checks | orderBy : '-priority'" class="list-group-item">
-        <div class="col-md-1">
+        <div class="col-md-1 col-xs-2">
             <abm-form-group style="margin-top:0px">
                 <div class="checkbox" abm-checkbox>
                     <input ng-click="switchCheck(check)" ng-checked="{{check.check}}" type="checkbox"/>
                 </div>
             </abm-form-group>
         </div>
-        <div class="col-md-10" style="margin-top:14px">
+        <div class="col-md-10 col-xs-8" style="margin-top:14px">
             <span ng-show="check.cross" ng-click="switchCross(check)">
                 <s>{{check.text}}</s>
             </span>
@@ -17,7 +17,7 @@
                 {{check.text}}
             </span>
         </div>
-        <div class="col-md-1" style="margin-top:14px">
+        <div class="col-md-1 col-xs-2" style="margin-top:14px">
             {% endraw %}
                 {% include 'priorities.html' %}
             {% raw %}
