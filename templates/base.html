@@ -11,7 +11,8 @@
 
         <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css"/>
-
+        <link rel="stylesheet" href="/static/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css"/>
+        <link rel="stylesheet" href="/static/bower_components/bootstrap-material-design/dist/css/ripples.min.css"/>
         <style type="text/css">
             .dropdown .dropdown-menu {
                 margin-top: 0px;
@@ -20,5 +21,21 @@
         </style>
     </head>
 
-    {% block body %}{% endblock %}
+    <body>
+        {% block body %}{% endblock %}
+        <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="/static/app.js"></script>
+        <script type="text/javascript" src="/static/bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.material.init();
+                console.log('material initialized')
+            });
+        </script>
+
+    </body>
+
 </html>

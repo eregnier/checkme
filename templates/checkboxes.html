@@ -1,0 +1,40 @@
+{% raw %}
+    <ul class="list-group">
+        <div ng-repeat="check in checks | orderBy : '-priority'">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                </label>
+            </div>
+
+
+
+            <li ng-attr-title="{{check.created}}" class="list-group-item">
+                <div class="form-group col-md-2">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-10">
+                    <span ng-show="check.cross" ng-click="switchCross(check)">
+                        <s>{{check.text}}</s>
+                    </span>
+                    <span ng-show="!check.cross" ng-click="switchCross(check)">
+                        {{check.text}}
+                    </span>
+
+
+                    {% endraw %}
+                        {% include 'priorities.html' %}
+                    {% raw %}
+
+                </div>
+            </li>
+            <div class="list-group-separator"></div>
+        </div>
+
+    </ul>
+{% endraw %}

@@ -7,7 +7,7 @@
     </style>
 
     {% raw %}
-    <body ng-controller="MainCtrl" style="overflow-x:hidden;">
+    <div ng-controller="MainCtrl" style="overflow-x:hidden;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-lg-6  col-lg-offset-3 col-xs-12 nopadding">
@@ -44,41 +44,12 @@
                             </div>
                         </div>
 
-                        <ul class="list-group">
-                            <li ng-attr-title="{{check.created}}" style="cursor:pointer" ng-repeat="check in checks | orderBy : '-priority'" class="list-group-item">
-                                <span ng-show="check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-check" aria-hidden="true"></span>
-                                <span ng-show="!check.check" ng-click="switchCheck(check)" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
 
-                                <span ng-show="check.cross" ng-click="switchCross(check)">
-                                    <s>{{check.text}}</s>
-                                </span>
-                                <span ng-show="!check.cross" ng-click="switchCross(check)">
-                                    {{check.text}}
-                                </span>
-                                <div ng-mouseover="check.changepriority = true" ng-mouseout="check.changepriority = false" class="pull-right">
-                                    <span ng-show="!check.changepriority" class="badge" >{{check.priority}}</span>
-                                    <div ng-show="check.changepriority" class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            {{check.priority}}
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li  ng-repeat="priority in [1,2,3,4,5]">
-                                                <a ng-click="changePriority(check, priority)">{{priority}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <div style="margin-top:10px;" ng-show="selectedCategory" class="input-group">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" ng-click="newCheck()">
-                                        <span  class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    </button>
-                                </span>
-                                <input ng-model="text" type="text" placeholder="New check" class="form-control" />
-                            </div>
-                        </ul>
+
+                        {% endraw %}
+                            {% include 'checkboxes.html' %}
+                            {% include 'addcheck.html' %}
+                        {% raw %}
 
                         {% endraw %}
                             <div class="text-center">
@@ -90,13 +61,7 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/static/bower_components/angularjs/angular.min.js"></script>
-        <script type="text/javascript" src="/static/app.js"></script>
-
-    </body>
+    </div>
     {% endraw %}
 
 {% endblock %}
-s
