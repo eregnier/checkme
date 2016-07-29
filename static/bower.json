@@ -1,6 +1,6 @@
 {
   "name": "checkme",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "authors": [
     "utopman <utopman@gmail.com>"
   ],
@@ -16,6 +16,7 @@
     "bootstrap": "~3.3.4",
     "jquery": "~2.1.3",
     "font-awesome": "~4.3.0",
-    "angularjs": ""
+    "angularjs": "",
+    "bootstrap-material-design": "~0.5.10"
   }
 }
