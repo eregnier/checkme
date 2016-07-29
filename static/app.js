@@ -1,4 +1,4 @@
-var module = angular.module('checkme', []);
+var module = angular.module('checkme', ['angularBootstrapMaterial']);
 
 module.controller('MainCtrl', function ($scope, $http) {
 

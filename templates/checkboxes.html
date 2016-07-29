@@ -1,40 +1,28 @@
 {% raw %}
-    <ul class="list-group">
-        <div ng-repeat="check in checks | orderBy : '-priority'">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox">
-                </label>
-            </div>
 
-
-
-            <li ng-attr-title="{{check.created}}" class="list-group-item">
-                <div class="form-group col-md-2">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">
-                        </label>
-                    </div>
+<div class="list-group">
+    <div ng-repeat="check in checks | orderBy : '-priority'" class="list-group-item">
+        <div class="col-md-1">
+            <abm-form-group style="margin-top:0px">
+                <div class="checkbox" abm-checkbox>
+                    <input type="checkbox" ng-model="checkbox.item1"/>
                 </div>
-
-                <div class="col-md-10">
-                    <span ng-show="check.cross" ng-click="switchCross(check)">
-                        <s>{{check.text}}</s>
-                    </span>
-                    <span ng-show="!check.cross" ng-click="switchCross(check)">
-                        {{check.text}}
-                    </span>
-
-
-                    {% endraw %}
-                        {% include 'priorities.html' %}
-                    {% raw %}
-
-                </div>
-            </li>
-            <div class="list-group-separator"></div>
+            </abm-form-group>
         </div>
-
-    </ul>
+        <div class="col-md-9" style="margin-top:14px">
+            <span ng-show="check.cross" ng-click="switchCross(check)">
+                <s>{{check.text}}</s>
+            </span>
+            <span ng-show="!check.cross" ng-click="switchCross(check)">
+                {{check.text}}
+            </span>
+        </div>
+        <div class="col-md-2" style="margin-top:14px">
+            {% endraw %}
+                {% include 'priorities.html' %}
+            {% raw %}
+        </div>
+        <div class="list-group-separator"></div>
+    </div>
+</div>
 {% endraw %}
