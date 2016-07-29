@@ -1,16 +1,17 @@
 {% raw %}
-    <div ng-mouseover="check.changepriority = true" ng-mouseout="check.changepriority = false" class="pull-right">
-        <span ng-show="!check.changepriority" class="badge" >{{check.priority}}</span>
-        <div ng-show="check.changepriority" class="dropdown">
-            <button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{check.priority}}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li  ng-repeat="priority in [1,2,3,4,5]">
-                    <a ng-click="changePriority(check, priority)">{{priority}}</a>
-                </li>
-            </ul>
+<div>
+<!--ng-click="startChangePriority(check)"-->
+    <button ng-show="!check.changepriority" style="margin-top:0px" ng-click="check.changepriority = true" ng-show="!check.changepriority" class="btn btn-default btn-raised btn-sm">{{check.priority}}</button>
+
+
+    <div ng-show="check.changepriority">
+        <div class="btn-group">
+            <button type="button" ng-click="changePriority(check, 1)" class="btn btn-sm btn-raised">1</button>
+            <button type="button" ng-click="changePriority(check, 2)" class="btn btn-sm btn-raised">2</button>
+            <button type="button" ng-click="changePriority(check, 3)" class="btn btn-sm btn-raised">3</button>
+            <button type="button" ng-click="changePriority(check, 4)" class="btn btn-sm btn-raised">4</button>
+            <button type="button" ng-click="changePriority(check, 5)" class="btn btn-sm btn-raised">5</button>
         </div>
     </div>
+</div>
 {% endraw %}

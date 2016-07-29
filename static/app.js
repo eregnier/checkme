@@ -68,9 +68,14 @@ module.controller('MainCtrl', function ($scope, $http) {
 
     $scope.changePriority = function(check, priority) {
         check.priority = priority;
+        check.changepriority = false;
         $http.get('/check/priority/' + check.id + '/' + priority);
     };
 
+    $scope.startChangePriority = function (check) {
+        check.changepriority = true;
+        $.material.ripples()
+    };
 
     $scope.reloadCategory();
 });

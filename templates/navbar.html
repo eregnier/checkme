@@ -1,0 +1,59 @@
+{% raw %}
+<div class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="javascript:void(0)">Checkme</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+            {{selectedCategory.text}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li>
+              <a ng-click="selectCategory(category)" ng-repeat="category in categories">{{category.text}}</a>
+            </li>
+            <li>
+              <div ng-show="selectedCategory" class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <button ng-click="newCategory()" type="button" class="btn btn-xs">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </span>
+                  <label class="control-label" for="addon4a">New check</label>
+                  <input ng-model="category" type="text" placeholde="New Category" id="addon4a" class="form-control">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">{% endraw %}{{current_user.email}}{% raw %}</a></li>
+        <li class="dropdown">
+          <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Actions
+            <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" ng-click="archive()">
+                <span  class="fa fa-archive" aria-hidden="true"></span> Archive
+              </a></li>
+              <li><a href="/logout">
+                <span  class="fa fa-sign-out" aria-hidden="true"></span> Logout
+              </a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endraw %}
