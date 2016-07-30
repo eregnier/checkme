@@ -12,9 +12,10 @@
     <div class="navbar-collapse collapse navbar-responsive-collapse">
 
       <ul class="nav navbar-nav">
+
         <li class="dropdown">
           <a data-target="#" class="dropdown-toggle" data-toggle="dropdown">
-            {{selectedCategory.text}}
+            {{selectedCategory.text || 'No category'}}
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -22,7 +23,7 @@
               <a ng-click="selectCategory(category)" ng-repeat="category in categories">{{category.text}}</a>
             </li>
             <li>
-              <div ng-show="selectedCategory" class="form-group label-floating">
+              <div class="form-group label-floating">
                 <div class="input-group">
                   <span class="input-group-btn">
                     <button ng-click="newCategory()" type="button" class="btn btn-xs">

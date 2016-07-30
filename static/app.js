@@ -74,7 +74,6 @@ module.controller('MainCtrl', function ($scope, $http) {
 
     $scope.startChangePriority = function (check) {
         check.changepriority = true;
-        $.material.ripples()
     };
 
     $scope.reloadCategory();
